@@ -13,73 +13,7 @@ svg { border: solid black 1px; }
 </head>
 <body>
 
-<h3>Prompt for Wednesday, Feb 25. Maps with data.</h3>
-
-<div>Data from <a href="http://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/go-to-the-atlas.aspx">USDA Atlas of Rural and Small-Town America</a>.</div>
-
-<!-- The SVG element will go in here -->
-<div id="map"></div>
-
-<script>
-
-var width = 960,
-    height = 500;
-
-var projection = d3.geo.albersUsa();
-
-var path = d3.geo.path().projection(projection);
-	
-var svg = d3.select("#map").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-var counties, states;
-
-var usdaAtlas;
-
-var populationScale = 
-d3.scale.linear()
-.domain([-5, 0, 5])
-.range(["#d8b365", "#f5f5f5", "#5ab4ac"]);
-
-// This is a process by which you get a number of files. there is a library called Hue that does all this for you
-d3.json("us.json", function(error, shapes) {
-	counties = topojson.feature(shapes, shapes.objects.counties).features;
-	states = topojson.feature(shapes, shapes.objects.states).features;
-	
-	d3.csv("usda-atlas-people.csv", function (error, rows) {
-		// what should we do with the CSV data?
-			
-		usdaAtlas = d3.map(rows, 
-			function (row) { return row.FIPS;  } );
-		
-		var allFIBS = usdaAtlas.keys();
-		function randomFIBS () { 
-			return allFIBS [ Math.floor(
-			Math.random() = allFIPS.length; )]; } 
-			
-		var countyPaths = svg.append("g");
-		countyPaths.selectAll("path").data(counties).enter()
-		.append("path").attr("d", path)
-		.style("fill", function (county) {
-			// set fill based on county attributes
-			var countyData = usdaAtlas.get(random county.id
-			
-		 PopChangeRate1013);
-			
-			// way to grab and element that contains an attribute that has a value -> could use a foreach and check eahch one to see if it has the correct fibs code - see the usdaAtlas code above
-			
-		})
-		.style("stroke", "none");
-	
-		var statePaths = svg.append("g");
-		statePaths.selectAll("path").data(states).enter()
-		.append("path").attr("d", path)
-		.style("fill", "none").style("stroke", "#ccc");
-	});
-	
-});
-
-</script>
+<h3>
 
 </body>
 </html>
