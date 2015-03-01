@@ -8,7 +8,6 @@
 /* put a border around the svg element so we can see the coordinate system better. */
 body { font-family: "Open Sans"; } div { margin: 30px; }
 svg { border: solid black 1px; }
-/* The default styles for axis elements stink. What should they be? */
 </style>
 </head>
 <body>
@@ -23,18 +22,27 @@ svg { border: solid black 1px; }
 var width = 500,
     height = 500;
 
-var doctorsPaid;
+var paymentData;
 
-d3.csv("General_Payment_Data_with_Identifying_Recipient_Information___Detailed_Dataset_2013_Reporting_YearUSA.csv", function (error, doctors) { 
-	doctorsPaid 
+// start of d3 code - note, I pulled this set up from the 2/18 class prompt notes - I think that prompt will be most relevant for us
+
+d3.csv("General_Payment_Data_with_Identifying_Recipient_Information___Detailed_Dataset_2013_Reporting_YearUSA.csv", function (error, data) { 
+	paymentData = data;
 	
-	})
+	// The column in the CVS file that has the NUMBER of physicians paid per pharma company is: Physician_Profile_ID
 
-	//adding an svg element in the "visualization" div
+	// The column in the CVS file that has the SUM (dollars) of payments for all physicians per pharma company is: Total_Amount_of_Payment_USDollars
+	
+	// The column in the CVS file that has the NAME of the pharma company is: Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name
+	
+	//adding an svg element in the "visualization" div:
 var svg = d3.select("#visualization").append("svg")
 	.attr("width", width)
 	.attr("height", height);	
 	
+	
+	// end of D3 code
+	})
 </script>
 
 </body>
