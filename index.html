@@ -12,8 +12,30 @@ svg { border: solid black 1px; }
 </style>
 </head>
 <body>
+<h1>Project One</h1>
 
-<h3>
+<!-- The SVG element will go in here -->
+<div id="visualization">
+</div>
+
+<script>
+// width and height of the SVG element - I just added some numbers, feel free to change it
+var width = 500,
+    height = 500;
+
+var doctorsPaid;
+
+d3.csv("General_Payment_Data_with_Identifying_Recipient_Information___Detailed_Dataset_2013_Reporting_YearUSA.csv", function (error, doctors) { 
+	doctorsPaid 
+	
+	})
+
+	//adding an svg element in the "visualization" div
+var svg = d3.select("#visualization").append("svg")
+	.attr("width", width)
+	.attr("height", height);	
+	
+</script>
 
 </body>
 </html>
