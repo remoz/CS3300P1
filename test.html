@@ -39,7 +39,7 @@ d3.json("Data2.json", function (error, data) {
 	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1300);
 
 	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1270]);
-	var yScale = d3.scale.linear().domain([1,50]).range([1970,100]);
+	var yScale = d3.scale.linear().domain([1,52]).range([1970,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,50]);
 	var amountScale = 
 	d3.scale.linear().domain([0, maxPayment/2, maxPayment]).range(["#d8b365", "#f5f5f5","#5ab4ac"]);
@@ -52,11 +52,19 @@ d3.json("Data2.json", function (error, data) {
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
-
-			for (var i = 0; i<states.lenght; i++){
-				if(d.Recipient_State == states[i]) {return 50-i;}
+		var state = d.Recipient_State;
+		console.log(state);
+		console.log(typeof(state));
+		for (var i = 0; i<states.lenght; i++){
+				if(state == states[i]) {
+					console.log(state);
+					return yScale(52-i);
+				}
 			}
-
+			// switch(d.Recipient_State){
+			// 	case "NY": return yScale(10);
+			// 	case "WA": return yScale(50);
+			// }
 		})
 		.attr("r", function(d) { 
 		if(d.Physician_Profile_ID == 0){
