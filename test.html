@@ -22,15 +22,12 @@ svg { border: solid black 1px; }
 <div id="canvas"></div>
 
 <script>
-var a = 1;
 var states = ["AA","AE","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
 
 d3.json("Data2.json", function (error, data) {
 	var PaymentData = data;
 	
-
-
 	var maxPhysicians = d3.max(PaymentData, function(d){
 		return d.Physician_Profile_ID;
 	});
@@ -39,10 +36,10 @@ d3.json("Data2.json", function (error, data) {
 		return d.Total_Amount_of_Payment_USDollars;
 	});
 
-	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1000);
+	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1300);
 
-	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([30,970]);
-	var yScale = d3.scale.linear().domain([1,50]).range([1970,30]);
+	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1270]);
+	var yScale = d3.scale.linear().domain([1,50]).range([1970,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,50]);
 	var amountScale = 
 	d3.scale.linear().domain([0, maxPayment/2, maxPayment]).range(["#d8b365", "#f5f5f5","#5ab4ac"]);
@@ -50,7 +47,7 @@ d3.json("Data2.json", function (error, data) {
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left");	
 	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
-	svg.append("g").attr("class","axis").attr("transform", "translate(30,0)").call(yAxis);
+	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
@@ -62,7 +59,7 @@ d3.json("Data2.json", function (error, data) {
 
 		})
 		.attr("r", function(d) { 
-		if( d.Physician_Profile_ID == 0 ){
+		if(d.Physician_Profile_ID == 0){
 			return 0;
 		}
 		else{
