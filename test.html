@@ -45,8 +45,11 @@ d3.json("Data2.json", function (error, data) {
 	d3.scale.linear().domain([0, maxPayment/2, maxPayment]).range(["#d8b365", "#f5f5f5","#5ab4ac"]);
 
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-	var yAxis = d3.svg.axis().scale(yScale).orient("left");	
+	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(50).tickFormat(function (i){
+				return states[i-1];
+				});
 	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
+
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
