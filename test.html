@@ -22,15 +22,18 @@ svg { border: solid black 1px; }
 <div id="canvas"></div>
 
 <script>
-d3.json("phisician.json", function (error, data) {
-	PaymentData = data;
+	// var states = ["AA","AE","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+
+d3.json("Data.json", function (error, data) {
+	var PaymentData = data;
+
 
 	var maxPhysicians = d3.max(PaymentData, function(d){
-		return d.PhysicianNumber;
+		return d.Physician_Profile_ID;
 	});
 
 	var maxPayment = d3.max(PaymentData, function(d){
-		return d.Payment;
+		return d.Total_Amount_of_Payment_USDollars;
 	});
 
 	var svg = d3.select("#canvas").append("svg").attr("height",1000).attr("width",1000);
@@ -47,7 +50,7 @@ d3.json("phisician.json", function (error, data) {
 	svg.append("g").attr("class","axis").attr("transform", "translate(30,0)").call(yAxis);
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
-	circles.attr("cx", function(d) { return xScale(d.PhysicianNumber) })
+	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
 			switch(d.State){
 				case "AA": return yScale(50);
@@ -57,9 +60,9 @@ d3.json("phisician.json", function (error, data) {
 			 	case "AZ": return yScale(46);
 			 }
 		})
-		.attr("r", function(d) { return radiusScale(d.Payment)})
+		.attr("r", function(d) { return radiusScale(d.Total_Amount_of_Payment_USDollars)})
 		.style("fill", function(d){
-				return amountScale(d.Payment);
+				return amountScale(d.Total_Amount_of_Payment_USDollars);
 		});
 
 });
