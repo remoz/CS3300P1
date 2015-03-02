@@ -75,14 +75,17 @@ d3.json("Data2.json", function (error, data) {
 		if(d.Physician_Profile_ID == 0){
 			return 0;
 		}
-		if(d.Total_Amount_of_Payment_USDollars > 1160000 ){
-			return 0;
-		}
-		
 		else{
 		return radiusScale(d.Total_Amount_of_Payment_USDollars)}})
 		.style("fill", function(d){
 				return amountScale(d.Total_Amount_of_Payment_USDollars);
+		})
+		.style("opacity", function(d){
+				if(d.Total_Amount_of_Payment_USDollars > 1160000 ){
+			return 0.4;
+		}
+			else
+			return 0.8;
 		});
 
 });
