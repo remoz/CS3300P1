@@ -78,9 +78,12 @@ range_array = max_array - min_array;
 var radiusScale = d3.scale.sqrt().domain([min_array,max_array]).range([0,50]);
 
 var newradii = [];
+var radiusScale = d3.scale.sqrt().domain([0,max_array]).range([0, 500]);
 for(var j = 0; j < radii.length; j++) {
-	newradii[j] = Math.floor( (radii[j] - min_array)/range_array *500);
+	/*newradii[j] = Math.floor( (radii[j] - min_array)/range_array *500);
 	console.log(newradii[j]);
+	*/
+	newradii[j] = radiusScale(radii[j]);
 }; 
 
 var circle = svg.selectAll("circle").data(paymentData).enter().append("circle");
