@@ -34,7 +34,7 @@ d3.json("Data2.json", function (error, data) {
 	var maxPhysicians = d3.max(PaymentData, function(d){
 		return d.Physician_Profile_ID;
 	});
-	console.log("This works too");
+
 	var maxPayment = d3.max(PaymentData, function(d){
 		return d.Total_Amount_of_Payment_USDollars;
 	});
@@ -61,7 +61,12 @@ d3.json("Data2.json", function (error, data) {
 			}
 
 		})
-		.attr("r", function(d) { return radiusScale(d.Total_Amount_of_Payment_USDollars)})
+		.attr("r", function(d) { 
+		if( d.Physician_Profile_ID == 0 ){
+			return 0;
+		}
+		else{
+		return radiusScale(d.Total_Amount_of_Payment_USDollars)}})
 		.style("fill", function(d){
 				return amountScale(d.Total_Amount_of_Payment_USDollars);
 		});
