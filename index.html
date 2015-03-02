@@ -71,9 +71,12 @@ range_array = max_array - min_array;
 // scaling the radii
 
 var newradii = [];
+var radiusScale = d3.scale.sqrt().domain([0,max_array]).range([0, 500]);
 for(var j = 0; j < radii.length; j++) {
-	newradii[j] = Math.floor( (radii[j] - min_array)/range_array *500);
+	/*newradii[j] = Math.floor( (radii[j] - min_array)/range_array *500);
 	console.log(newradii[j]);
+	*/
+	newradii[j] = radiusScale(radii[j]);
 }; 
 
 
@@ -81,9 +84,16 @@ function makeCircle(r,i){
 	var svg1 = d3.select("svg");
 	var circle = svg1.append("circle");
 	circle
-	.attr("cx", r*10+10)
+	.attr("cx", r*10+i*50)
 		.attr("cy", 160)
-		.attr("r", r);
+		.attr("r", r)
+		.attr("fill", function(){
+			if(r > 34){
+			return "red";
+			}
+			else{
+			return "black";}}
+			);
 // Note that I'm setting a position for cx and cy. Once we
 //get xScale and yScale working, we should replace those
 // with the correct position values for each circle.
@@ -94,7 +104,6 @@ function makeCircle(r,i){
 newradii.forEach(makeCircle);
 
 
-	
 	});
 
 
