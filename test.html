@@ -22,11 +22,17 @@ svg { border: solid black 1px; }
 <div id="canvas"></div>
 
 <script>
-	// var states = ["AA","AE","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+var a = 1;
+var states = ["AA","AE","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
+<<<<<<< Updated upstream
 d3.json("Data2.json", function (error, data) {
 	var PaymentData = data;
 	
+=======
+d3.json("Data.json", function (error, data) {
+	PaymentData = data;
+>>>>>>> Stashed changes
 
 	var maxPhysicians = d3.max(PaymentData, function(d){
 		return d.Physician_Profile_ID;
@@ -52,6 +58,7 @@ d3.json("Data2.json", function (error, data) {
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
+<<<<<<< Updated upstream
 			switch(d.Recipient_State){
 				case "AA": return yScale(50);
 			 	case "AE": return yScale(49);
@@ -59,6 +66,11 @@ d3.json("Data2.json", function (error, data) {
 			 	case "AK": return yScale(47);
 			 	case "AZ": return yScale(46);
 			 }
+=======
+			for (var i = 0; i<states.lenght; i++){
+				if(d.Recipient_State == states[i]) {return 50-i;}
+			}
+>>>>>>> Stashed changes
 		})
 		.attr("r", function(d) { return radiusScale(d.Total_Amount_of_Payment_USDollars)})
 		.style("fill", function(d){
