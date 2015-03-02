@@ -58,14 +58,30 @@ paymentDataStrip[i]=paymentData[i].Total_Amount_of_Payment_USDollars.substr(1, p
 	
 // Eventually radii will be the number values of the
 //payment amounts.
-var radii = [10, 20, 40, 70];
+var radii = paymentDataStrip;
 // example, = paymentDataStrip;
+
+
+// variables needed for scaling. Found the 
+//code to do this properly (for big data arrays)
+// at http://stackoverflow.com/questions/1669190/javascript-min-max-array-values
+var max_array = Math.max.apply(Math, radii);
+var min_array = Math.min.apply(Math, radii);
+range_array = max_array - min_array; 
+// scaling the radii
+
+var newradii = [];
+for(var j = 0; j < radii.length; j++) {
+	newradii[j] = Math.floor( (radii[j] - min_array)/range_array * 200);
+	console.log(newradii[j]);
+}; 
+
 
 function makeCircle(r,i){
 	var svg1 = d3.select("svg");
 	var circle = svg1.append("circle");
 	circle
-	.attr("cx", i*100 + 30)
+	.attr("cx", i-10)
 		.attr("cy", 160)
 		.attr("r", r);
 // Note that I'm setting a position for cx and cy. Once we
@@ -75,7 +91,7 @@ function makeCircle(r,i){
 };
 
 
-radii.forEach(makeCircle);
+newradii.forEach(makeCircle);
 
 
 	
