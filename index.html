@@ -8,6 +8,7 @@
 /* put a border around the svg element so we can see the coordinate system better. */
 body { font-family: "Open Sans"; } div { margin: 30px; }
 svg { border: solid black 1px; }
+circle { opacity: 0.3; }
 </style>
 </head>
 <body>
@@ -40,9 +41,51 @@ var svg = d3.select("#visualization").append("svg")
 	.attr("width", width)
 	.attr("height", height);	
 	
-	
 	// end of D3 code
-	})
+	
+	});
+	
+
+//Accessing the data about the payment and stripping the "$"
+
+// This should be working, but it's throwing up an error.
+//For some reason, it doesn't let me work with paymentData and
+//its properties, yet this whole thing works in the console.
+
+var paymentDataStrip = [];
+
+for(var i = 0; i < paymentData.length; i++) {
+
+paymentDataStrip[i]=paymentData[i].Total_Amount_of_Payment_USDollars.substr(1, paymentData[i].Total_Amount_of_Payment_USDollars.length );
+console.log(paymentDataStrip[i]); 
+}
+
+
+
+// Eventually radii will be the number values of the
+//payment amounts.
+var radii = [10, 20, 30, 40];
+// example, = paymentDataStrip;
+
+function makeCircle(r,i){
+	var svg1 = d3.select("svg");
+	var circle = svg1.append("circle");
+	circle
+	.attr("cx", i*60 + 10)
+		.attr("cy", 150)
+		.attr("r", r);
+// Note that I'm setting a position for cx and cy. Once we
+//get xScale and yScale working, we should replace those
+// with the correct position values for each circle.
+// Most likely, we will use a nested function
+};
+
+// This function call should be working, but it isn't.
+//Works on the console. Why... what... It should make circles appear
+radii.forEach(makeCircle);
+
+
+
 </script>
 
 </body>
