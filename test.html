@@ -27,6 +27,8 @@ circle { opacity: 0.8; }
 <script>
 var states = ["","","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
+var fullstates = ["", "", "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+
 
 d3.json("Data2.json", function (error, data) {
 	var PaymentData = data;
@@ -50,8 +52,9 @@ d3.json("Data2.json", function (error, data) {
 
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(50).tickFormat(function (i){
-				return states[i-1];
-				});
+				return fullstates[i-1];
+				})
+	.tickPadding(25);
 	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
 
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
@@ -87,6 +90,10 @@ d3.json("Data2.json", function (error, data) {
 			else
 			return 0.8;
 		});
+		
+		
+
+	var top10states = ["CA", "TX", "FL", "NY", "IL"];
 
 });
 
