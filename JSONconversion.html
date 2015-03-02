@@ -53,11 +53,12 @@ for(var i = 0; i < paymentData.length; i++) {
 paymentData[i].Physician_Profile_ID = Number(paymentData[i].Physician_Profile_ID);
 }
 
-
+document.write("[");
 for(var i = 0; i < paymentData.length; i++) {
 	document.write(JSON.stringify(paymentData[i]));
+	document.write(",");
 	}
-	
+document.write("]");
 
 	/*
 	var maxPhysicians = d3.max(paymentData, function(d){

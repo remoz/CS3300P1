@@ -16,7 +16,7 @@ svg { border: solid black 1px; }
 </head>
 <body>
 
-<h3>Prompt for Wednesday, Feb 18. Asynchronous data loading. Axes. Non-linear scales.</h3>
+<h3>Project 1</h3>
 
 <!-- The SVG element will go in here -->
 <div id="canvas"></div>
@@ -24,14 +24,14 @@ svg { border: solid black 1px; }
 <script>
 	// var states = ["AA","AE","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
-d3.json("Data.json", function (error, data) {
+d3.json("Data2.json", function (error, data) {
 	var PaymentData = data;
-
+	
 
 	var maxPhysicians = d3.max(PaymentData, function(d){
 		return d.Physician_Profile_ID;
 	});
-
+	console.log("This works too");
 	var maxPayment = d3.max(PaymentData, function(d){
 		return d.Total_Amount_of_Payment_USDollars;
 	});
@@ -52,7 +52,7 @@ d3.json("Data.json", function (error, data) {
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
-			switch(d.State){
+			switch(d.Recipient_State){
 				case "AA": return yScale(50);
 			 	case "AE": return yScale(49);
 			 	case "AL": return yScale(48);
