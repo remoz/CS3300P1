@@ -1,0 +1,70 @@
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<!-- Load the d3 library. -->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style>
+/* put a border around the svg element so we can see the coordinate system better. */
+body { font-family: "Open Sans"; } div { margin: 30px; }
+svg { border: solid black 1px; }
+/* The default styles for axis elements stink. What should they be? */
+.axis path {fill:none; stroke: #377;}
+.axis line {stroke: #777;}
+.axis text {font-size: 10px;}
+
+</style>
+</head>
+<body>
+
+<h3>Prompt for Wednesday, Feb 18. Asynchronous data loading. Axes. Non-linear scales.</h3>
+
+<!-- The SVG element will go in here -->
+<div id="canvas"></div>
+
+<script>
+d3.json("phisician.json", function (error, data) {
+	PaymentData = data;
+
+	var maxPhysicians = d3.max(PaymentData, function(d){
+		return d.PhysicianNumber;
+	});
+
+	var maxPayment = d3.max(PaymentData, function(d){
+		return d.Payment;
+	});
+
+	var svg = d3.select("#canvas").append("svg").attr("height",1000).attr("width",1000);
+
+	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([30,970]);
+	var yScale = d3.scale.linear().domain([1,50]).range([970,30]);
+	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,50]);
+	var amountScale = 
+	d3.scale.linear().domain([0, maxPayment/2, maxPayment]).range(["#d8b365", "#f5f5f5","#5ab4ac"]);
+
+	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+	var yAxis = d3.svg.axis().scale(yScale).orient("left");	
+	svg.append("g").attr("class","axis").attr("transform", "translate(0,970)").call(xAxis);
+	svg.append("g").attr("class","axis").attr("transform", "translate(30,0)").call(yAxis);
+
+	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
+	circles.attr("cx", function(d) { return xScale(d.PhysicianNumber) })
+		.attr("cy", function(d){
+			switch(d.State){
+				case "AA": return yScale(50);
+			 	case "AE": return yScale(49);
+			 	case "AL": return yScale(48);
+			 	case "AK": return yScale(47);
+			 	case "AZ": return yScale(46);
+			 }
+		})
+		.attr("r", function(d) { return radiusScale(d.Payment)})
+		.style("fill", function(d){
+				return amountScale(d.Payment);
+		});
+
+});
+
+</script>
+
+</body>
+</html>
