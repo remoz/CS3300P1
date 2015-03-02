@@ -72,7 +72,7 @@ range_array = max_array - min_array;
 
 var newradii = [];
 for(var j = 0; j < radii.length; j++) {
-	newradii[j] = Math.floor( (radii[j] - min_array)/range_array * 200);
+	newradii[j] = Math.floor( (radii[j] - min_array)/range_array *500);
 	console.log(newradii[j]);
 }; 
 
@@ -81,7 +81,7 @@ function makeCircle(r,i){
 	var svg1 = d3.select("svg");
 	var circle = svg1.append("circle");
 	circle
-	.attr("cx", i-10)
+	.attr("cx", r*10+10)
 		.attr("cy", 160)
 		.attr("r", r);
 // Note that I'm setting a position for cx and cy. Once we
