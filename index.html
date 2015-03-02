@@ -9,6 +9,9 @@
 body { font-family: "Open Sans"; } div { margin: 30px; }
 svg { border: solid black 1px; }
 circle { opacity: 0.3; }
+.axis path {fill:none; stroke: #377;}
+.axis line {stroke: #777;}
+
 </style>
 </head>
 <body>
@@ -44,7 +47,13 @@ var svg = d3.select("#visualization").append("svg")
 	// end of D3 code
 
 	
-	
+	var maxPhysicians = d3.max(paymentData, function(d){
+		return +d.Physician_Profile_ID;
+	});
+	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([30,width-30]);
+	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+	svg.append("g").attr("class","axis").attr("transform", "translate(0,470)").call(xAxis);
+
 //Accessing the data about the payment and stripping the "$"
 var paymentDataStrip = [];
 
@@ -53,9 +62,6 @@ for(var i = 0; i < paymentData.length; i++) {
 paymentDataStrip[i]=paymentData[i].Total_Amount_of_Payment_USDollars.substr(1, paymentData[i].Total_Amount_of_Payment_USDollars.length );
  
 }
-
-
-	
 // Eventually radii will be the number values of the
 //payment amounts.
 var radii = paymentDataStrip;
@@ -69,6 +75,7 @@ var max_array = Math.max.apply(Math, radii);
 var min_array = Math.min.apply(Math, radii);
 range_array = max_array - min_array; 
 // scaling the radii
+var radiusScale = d3.scale.sqrt().domain([min_array,max_array]).range([0,50]);
 
 var newradii = [];
 for(var j = 0; j < radii.length; j++) {
@@ -76,12 +83,12 @@ for(var j = 0; j < radii.length; j++) {
 	console.log(newradii[j]);
 }; 
 
-
+var circle = svg.selectAll("circle").data(paymentData).enter().append("circle");
 function makeCircle(r,i){
-	var svg1 = d3.select("svg");
-	var circle = svg1.append("circle");
+	// var svg1 = d3.select("svg");
+	// var circle = svg1.append("circle");
 	circle
-	.attr("cx", r*10+10)
+	.attr("cx", function(d) { return xScale(d.Physician_Profile_ID)})
 		.attr("cy", 160)
 		.attr("r", r);
 // Note that I'm setting a position for cx and cy. Once we
@@ -89,20 +96,8 @@ function makeCircle(r,i){
 // with the correct position values for each circle.
 // Most likely, we will use a nested function
 };
-
-
 newradii.forEach(makeCircle);
-
-
-	
-	});
-
-
-
-
-
-
-
+});
 </script>
 
 </body>
