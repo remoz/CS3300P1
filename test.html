@@ -56,14 +56,12 @@ d3.json("Data2.json", function (error, data) {
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
 		var state = d.Recipient_State;
-		console.log(state);
-		console.log(typeof(state));
-		for (var i = 0; i<states.lenght; i++){
+		for (var i = 0; i<states.length; i++){
 				if(state == states[i]) {
-					console.log(state);
-					return yScale(52-i);
+					return yScale(i+1);
 				}
 			}
+		return -100;
 			// switch(d.Recipient_State){
 			// 	case "NY": return yScale(10);
 			// 	case "WA": return yScale(50);
