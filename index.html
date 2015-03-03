@@ -83,6 +83,18 @@ d3.json("Data2.json", function (error, data) {
 	.text("Number of Doctors Paid")
 	.style("font-size", 13);
 
+	//append legend
+	svg.append("text").attr("x", 650).attr("y", 115)
+		.text("Less than $100,000")
+		.style("font-size", 16);
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 600).attr("y", 95)
+		.style("fill", "#FFFF99");
+	svg.append("text").attr("x", 650).attr("y", 140).text("More than $100,000")
+		.style("font-size", 16); 
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 600).attr("y", 140)
+		.style("fill", "#FF9999");
+
+	//append circles
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
