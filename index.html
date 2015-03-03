@@ -39,9 +39,9 @@ We attempt to show any patterns of potential corruption - in terms of large paym
 
 
 <script>
-var states = ["","","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+var states = ["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
-var fullstates = ["", "", "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+var fullstates = ["", "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
 
 
 d3.json("Data2.json", function (error, data) {
@@ -61,7 +61,7 @@ d3.json("Data2.json", function (error, data) {
 	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1200);
 
 	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1170]);
-	var yScale = d3.scale.linear().domain([1,52]).range([1900,100]);
+	var yScale = d3.scale.linear().domain([1,51]).range([1900,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,200]);
 	var amountScale = d3.scale.linear().domain([0, 100000, maxPayment]).range(["#FFFF99", "#FF9999","#9966FF"]);
 	
