@@ -11,7 +11,7 @@ circle { opacity: 0.8; }
 /* The default styles for axis elements stink. What should they be? */
 .axis path {fill:none; stroke: #377;}
 .axis line {stroke: #777;}
-.axis text {font-size: 10px;}
+.axis text {font-size: 12px;}
 
 </style>
 </head>
@@ -56,10 +56,10 @@ d3.json("Data2.json", function (error, data) {
 	
 	/*  THE BIG GRAPH WORK --------------------------------------------------------*/
 
-	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1300);
+	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1200);
 
-	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1270]);
-	var yScale = d3.scale.linear().domain([1,52]).range([1970,100]);
+	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1170]);
+	var yScale = d3.scale.linear().domain([1,52]).range([1900,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,200]);
 	var amountScale = d3.scale.linear().domain([0, 100000, maxPayment]).range(["#FFFF99", "#FF9999","#9966FF"]);
 	
@@ -69,14 +69,19 @@ d3.json("Data2.json", function (error, data) {
 				return fullstates[i-1];
 				})
 	.tickPadding(25);
-	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
+	svg.append("g").attr("class","axis").attr("transform", "translate(0,1900)").call(xAxis);
 
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
 
 	//append title here.
-	svg.append("text").attr("x", 650).attr("y", 50).attr("text-anchor","middle")
+	svg.append("text").attr("x", 600).attr("y", 50).attr("text-anchor","middle")
 	.text("Pharmaceutical Marketing Spending on Individual Physicians in 2013")
-	.style("font-size", 25);
+	.style("font-size", 22);
+
+	//append x label here
+	svg.append("text").attr("x", 660).attr("y", 1950).attr("text-anchor","middle")
+	.text("Number of Doctors Paid")
+	.style("font-size", 13);
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
@@ -88,10 +93,6 @@ d3.json("Data2.json", function (error, data) {
 				}
 			}
 		return -100;
-			// switch(d.Recipient_State){
-			// 	case "NY": return yScale(10);
-			// 	case "WA": return yScale(50);
-			// }
 		})
 		.attr("r", function(d) { 
 		if(d.Physician_Profile_ID == 0){
