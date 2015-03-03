@@ -36,9 +36,9 @@ This graph is also a closer view than the previous, looking only at companies th
 
 
 <script>
-var states = ["","","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+var states = ["","AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IA","IN","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
-var fullstates = ["", "", "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+var fullstates = ["", "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
 
 
 d3.json("Data2.json", function (error, data) {
@@ -58,7 +58,7 @@ d3.json("Data2.json", function (error, data) {
 	var svg = d3.select("#canvas").append("svg").attr("height",2000).attr("width",1300);
 
 	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1270]);
-	var yScale = d3.scale.linear().domain([1,52]).range([1970,100]);
+	var yScale = d3.scale.linear().domain([1,51]).range([1900,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,200]);
 
 	var amountScale = 
@@ -72,9 +72,15 @@ d3.json("Data2.json", function (error, data) {
 				return fullstates[i-1];
 				})
 	.tickPadding(25);
-	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
+	svg.append("g").attr("class","axis").attr("transform", "translate(0,1900)").call(xAxis);
 
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
+	
+	//append title here
+	svg.append("text").attr("x", 650).attr("y", 50).attr("text-anchor","middle")
+	.text("Pharmaceutical Marketing Spending on Individual Physicians in 2013")
+	.style("font-size", 25);
+
 	svg.append("text").attr("x", 650).attr("y", 50).attr("text-anchor","middle")
 	.text("Pharmaceutical Marketing Spending on Individual Physicians in 2013")
 	.style("font-size", 25);

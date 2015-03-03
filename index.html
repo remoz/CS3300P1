@@ -73,6 +73,11 @@ d3.json("Data2.json", function (error, data) {
 
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
 
+	//append title here.
+	svg.append("text").attr("x", 650).attr("y", 50).attr("text-anchor","middle")
+	.text("Pharmaceutical Marketing Spending on Individual Physicians in 2013")
+	.style("font-size", 25);
+
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
 		.attr("cy", function(d){
