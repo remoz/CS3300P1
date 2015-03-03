@@ -12,8 +12,6 @@ circle { opacity: 0.8; }
 .axis path {fill:none; stroke: #377;}
 .axis line {stroke: #777;}
 .axis text {font-size: 10px;}
-.text{font-family: Palatino; font-size: 38px;}
-
 </style>
 </head>
 <body>
@@ -62,16 +60,13 @@ d3.json("Data2.json", function (error, data) {
 	var xScale = d3.scale.linear().domain([0,maxPhysicians]).range([150,1270]);
 	var yScale = d3.scale.linear().domain([1,52]).range([1970,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,200]);
-<<<<<<< HEAD
+
 	var amountScale = 
 	d3.scale.linear().domain([0, 50000, 100000, 1000000, 10000000, maxPayment])
 	.range(["#FF6347", "#A52A2A","#C71585","#8A2BE2 ","#DDA0DD","#483D8B"]);
  
-=======
 	var amountScale = d3.scale.linear().domain([0, 100000, maxPayment]).range(["#FFFF99", "#FF9999","#9966FF"]);
 	
-
->>>>>>> origin/master
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(50).tickFormat(function (i){
 				return fullstates[i-1];
@@ -148,10 +143,6 @@ var svg = d3.select("#smallcanvas").append("svg").attr("height",800).attr("width
 				}
 			}
 		return -100;
-			// switch(d.Recipient_State){
-			// 	case "NY": return yScale(10);
-			// 	case "WA": return yScale(50);
-			// }
 		})
 		.attr("r", function(d) { 
 		if(d.Physician_Profile_ID == 0){
