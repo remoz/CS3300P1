@@ -12,6 +12,7 @@ circle { opacity: 0.8; }
 .axis path {fill:none; stroke: #377;}
 .axis line {stroke: #777;}
 .axis text {font-size: 10px;}
+.text{font-family: Palatino; font-size: 38px;}
 
 </style>
 </head>
@@ -65,9 +66,6 @@ d3.json("Data2.json", function (error, data) {
 	d3.scale.linear().domain([0, 50000, 100000, 1000000, 10000000, maxPayment])
 	.range(["#FF6347", "#A52A2A","#C71585","#8A2BE2 ","#DDA0DD","#483D8B"]);
  
-	
-	
-
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(50).tickFormat(function (i){
 				return fullstates[i-1];
@@ -76,6 +74,9 @@ d3.json("Data2.json", function (error, data) {
 	svg.append("g").attr("class","axis").attr("transform", "translate(0,1970)").call(xAxis);
 
 	svg.append("g").attr("class","axis").attr("transform", "translate(150,0)").call(yAxis);
+	svg.append("text").attr("x", 650).attr("y", 50).attr("text-anchor","middle")
+	.text("Pharmaceutical Marketing Spending on Individual Physicians in 2013")
+	.style("font-size", 25);
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
@@ -87,10 +88,6 @@ d3.json("Data2.json", function (error, data) {
 				}
 			}
 		return -100;
-			// switch(d.Recipient_State){
-			// 	case "NY": return yScale(10);
-			// 	case "WA": return yScale(50);
-			// }
 		})
 		.attr("r", function(d) { 
 		if(d.Physician_Profile_ID == 0){
