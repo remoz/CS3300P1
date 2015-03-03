@@ -48,7 +48,8 @@ d3.json("Data2.json", function (error, data) {
 	var yScale = d3.scale.linear().domain([1,52]).range([1970,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,200]);
 	var amountScale = 
-	d3.scale.linear().domain([0, maxPayment/2, maxPayment]).range(["#d8b365", "#f5f5f5","#5ab4ac"]);
+	d3.scale.linear().domain([0, 50000, 100000, 1000000, 10000000, maxPayment])
+	.range(["#FF6347", "#A52A2A","#C71585","#8A2BE2 ","#DDA0DD","#483D8B"]);
 
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(50).tickFormat(function (i){
