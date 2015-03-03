@@ -24,15 +24,17 @@ circle { opacity: 0.8; }
 
 
 
-<h3> The Full Data </h3>  This graph displays the amount of doctors (x axis) that recieve money from specific companies (circles), grouped by state (y axis). The radius of the circles imply the amount of money donated to the doctors.
+<h3> Pharmaceutical Marketing Spending on Physicians in the US </h3>  
+This visualization displays the money given by phrama companies to individual physicians, in the form of a single circle per company, arranged according to the number of physicians that have received the money (the x axis). The size of the circles illustrates the amount given.
+The source of the data is CMS, and the data only shows August - December 2013, the first period that data reporting to Centers for Medicare & Medicaid Services (CMS) began.
 <div id="canvas"></div>
 
 
 <br> <br> <br>
-<h3> A Closer Look: The Top 5 Populated States </h3> 
-The highest population states are Illinois, New York, Florida, Texas, and California according to a website we visited, so we chose to narrow our view to those specifically.
-<br><br>
-This graph is also a closer view than the previous, looking only at companies that donate to 500 doctors or less. We also stripped some data, so it would only show donations bigger than 250,000 dollars in total amount. This is our effort to explore the tendencies of companies in their types of donations, and to see any patterns of potential corruption that the data might reveal. (Note: The largest circle/company belongs to California.)
+<h3> A Closer Look: Pharmaceutical Marketing Spending on Physicians in Top 5 Most Populated States </h3> 
+
+This graph examines spending on 500 doctors or less in the largest states, and only shows spending by each pharma company that totals more than $250,000 dollars for all physicians. 
+We attempt to show any patterns of potential corruption - in terms of large payments made to very fewer individuals - that the data might reveal. (Note: The largest circle/company belongs to California.)
 <div id="smallcanvas"> </div>
 
 
@@ -84,15 +86,19 @@ d3.json("Data2.json", function (error, data) {
 	.style("font-size", 13);
 
 	//append legend
-	svg.append("text").attr("x", 650).attr("y", 115)
+	svg.append("text").attr("x", 850).attr("y", 114)
 		.text("Less than $100,000")
 		.style("font-size", 16);
-	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 600).attr("y", 95)
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 800).attr("y", 95)
 		.style("fill", "#FFFF99");
-	svg.append("text").attr("x", 650).attr("y", 140).text("More than $100,000")
+	svg.append("text").attr("x", 850).attr("y", 143).text("More than $100,000")
 		.style("font-size", 16); 
-	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 600).attr("y", 140)
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 800).attr("y", 125)
 		.style("fill", "#FF9999");
+	svg.append("text").attr("x", 850).attr("y", 170).text("Max - more than $100,000,000")
+		.style("font-size", 16); 
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 800).attr("y", 155)
+		.style("fill", "#9966FF");
 
 	//append circles
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
@@ -151,13 +157,28 @@ var svg = d3.select("#smallcanvas").append("svg").attr("height",800).attr("width
 
 	//append title here.
 	svg.append("text").attr("x", 600).attr("y", 50).attr("text-anchor","middle")
-	.text("Pharmaceutical Marketing Spending on Individual Physicians of Top5 Populated States")
+	.text("Pharmaceutical Marketing Spending on Individual Physicians in Top 5 States by Population")
 	.style("font-size", 22);
 
 	//append x label here
 	svg.append("text").attr("x", 660).attr("y", 750).attr("text-anchor","middle")
 	.text("Number of Doctors Paid")
 	.style("font-size", 13);
+
+//append legend
+	svg.append("text").attr("x", 950).attr("y", 114)
+		.text("Less than $100,000")
+		.style("font-size", 16);
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 900).attr("y", 95)
+		.style("fill", "#FFFF99");
+	svg.append("text").attr("x", 950).attr("y", 143).text("More than $100,000")
+		.style("font-size", 16); 
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 900).attr("y", 125)
+		.style("fill", "#FF9999");
+	svg.append("text").attr("x", 950).attr("y", 170).text("Max - more than $100,000,000")
+		.style("font-size", 16); 
+	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 900).attr("y", 155)
+		.style("fill", "#9966FF");
 
 	var circles = svg.selectAll("circle").data(PaymentData).enter().append("circle");
 	circles.attr("cx", function(d) { return xScale(d.Physician_Profile_ID) })
