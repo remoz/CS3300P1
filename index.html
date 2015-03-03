@@ -145,7 +145,7 @@ var svg = d3.select("#smallcanvas").append("svg").attr("height",800).attr("width
 	var xScale = d3.scale.linear().domain([0,maxPhysicians2]).range([150,1170]);
 	var yScale = d3.scale.linear().domain([1,6]).range([700,100]);
 	var radiusScale = d3.scale.sqrt().domain([0,maxPayment]).range([0,300]);
-	var amountScale = d3.scale.linear().domain([0, 100000, maxPayment]).range(["#FFFF99", "#FF9999","#9966FF"]);
+	var amountScale = d3.scale.linear().domain([0, 250000, maxPayment]).range(["#FFFF99", "#FF9999","#9966FF"]);
 	var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 	var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5).tickFormat(function (i){
 				return fulltop5states[i-2];
@@ -165,13 +165,8 @@ var svg = d3.select("#smallcanvas").append("svg").attr("height",800).attr("width
 	.text("Number of Doctors Paid")
 	.style("font-size", 13);
 
-//append legend
-	svg.append("text").attr("x", 950).attr("y", 114)
-		.text("Less than $100,000")
-		.style("font-size", 16);
-	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 900).attr("y", 95)
-		.style("fill", "#FFFF99");
-	svg.append("text").attr("x", 950).attr("y", 143).text("More than $100,000")
+	//append legend
+	svg.append("text").attr("x", 950).attr("y", 143).text("More than $250,000")
 		.style("font-size", 16); 
 	svg.append("rect").attr("width", 25).attr("height", 25).attr("x", 900).attr("y", 125)
 		.style("fill", "#FF9999");
@@ -190,10 +185,6 @@ var svg = d3.select("#smallcanvas").append("svg").attr("height",800).attr("width
 				}
 			}
 		return -100;
-			// switch(d.Recipient_State){
-			// 	case "NY": return yScale(10);
-			// 	case "WA": return yScale(50);
-			// }
 		})
 		.attr("r", function(d) { 
 		if(d.Physician_Profile_ID == 0){
